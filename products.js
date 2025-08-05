@@ -135,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="product-field"><strong>KHU:</strong> ${item['KHU'] || 'N/A'}</div>
                         <div class="product-field"><strong>LOẠI:</strong> ${item['LOẠI'] || 'N/A'}</div>
                         <div class="product-field"><strong>DT:</strong> ${item['DT'] || 'N/A'} m²</div>
-                        <div class="product-field"><strong>Cơ chế:</strong> ${item['Loại Quỹ'] || 'N/A'}</div>
                         <div class="product-field price-field"><strong>TTS:</strong> ${ttsFormatted}</div>
                         <div class="product-field price-field"><strong>FULL:</strong> ${fullFormatted}</div>
                         <div class="product-field note-field">${item['GHI CHÚ'] || ''}</div>
@@ -164,26 +163,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const prevButton = document.createElement('button');
         prevButton.innerText = 'Trước';
+        prevButton.className = 'action-btn'; // Áp dụng style chung
         prevButton.disabled = currentPage === 1;
         prevButton.addEventListener('click', () => {
-            currentPage--;
-            updateView();
-            window.scrollTo(0, 0);
+            if (currentPage > 1) {
+                currentPage--;
+                updateView();
+                window.scrollTo(0, 0);
+            }
         });
         paginationControls.appendChild(prevButton);
 
-        const pageInfo = document.createElement('span');
-        pageInfo.className = 'page-info';
-        pageInfo.innerText = `Trang ${currentPage} / ${totalPages}`;
-        paginationControls.appendChild(pageInfo);
+        // Tạo container cho ô nhập liệu và tổng số trang
+        const pageInputContainer = document.createElement('div');
+        pageInputContainer.className = 'page-input-container';
+
+        const pageInput = document.createElement('input');
+        pageInput.type = 'number';
+        pageInput.className = 'page-input';
+        pageInput.value = currentPage;
+        pageInput.min = 1;
+        pageInput.max = totalPages;
+
+        const handlePageJump = () => {
+            let newPage = parseInt(pageInput.value, 10);
+            if (!isNaN(newPage)) {
+                // Đảm bảo số trang nằm trong khoảng hợp lệ
+                newPage = Math.max(1, Math.min(newPage, totalPages));
+                if (newPage !== currentPage) {
+                    currentPage = newPage;
+                    updateView();
+                    window.scrollTo(0, 0);
+                }
+            }
+            pageInput.value = currentPage; // Luôn cập nhật lại giá trị đúng
+        };
+
+        pageInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                handlePageJump();
+                pageInput.blur(); // Bỏ focus sau khi nhảy trang
+            }
+        });
+        pageInput.addEventListener('blur', handlePageJump);
+        pageInputContainer.appendChild(pageInput);
+
+        const pageTotal = document.createElement('span');
+        pageTotal.className = 'page-total';
+        pageTotal.innerText = `/ ${totalPages}`;
+        pageInputContainer.appendChild(pageTotal);
+
+        paginationControls.appendChild(pageInputContainer);
 
         const nextButton = document.createElement('button');
         nextButton.innerText = 'Sau';
+        nextButton.className = 'action-btn'; // Áp dụng style chung
         nextButton.disabled = currentPage === totalPages;
         nextButton.addEventListener('click', () => {
-            currentPage++;
-            updateView();
-            window.scrollTo(0, 0);
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateView();
+                window.scrollTo(0, 0);
+            }
         });
         paginationControls.appendChild(nextButton);
     }

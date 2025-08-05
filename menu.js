@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuHTML = `
         <nav class="main-nav">
             <div class="logo">
-                <i class="fa-brands fa-threads"></i>
+                <i class="s"></i>
             </div>
             <ul>
                 <li>

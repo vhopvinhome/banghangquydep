@@ -73,6 +73,31 @@ ul {
     padding-bottom: calc(var(--bottom-nav-height) + 20px);
 }
 
+/* --- Nút thu gọn bộ lọc trên Mobile --- */
+#toggle-filters-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    width: auto;
+    height: auto;
+    padding: 10px 16px;
+}
+
+#filters-wrapper {
+    /* Biến khu vực bộ lọc thành một "thẻ" riêng biệt */
+    background-color: var(--hover-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px; /* Khoảng cách giữa thẻ lọc và danh sách sản phẩm */
+    display: none; /* Mặc định ẩn bộ lọc trên mobile */
+}
+
+.filters-open #filters-wrapper {
+    display: block; /* Hiển thị khi có class .filters-open */
+}
+
 /* --- Giao diện cho máy tính bảng và máy tính (Desktop) --- */
 /* Áp dụng khi chiều rộng màn hình từ 768px trở lên */
 
@@ -269,30 +294,45 @@ ul {
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-    gap: 10px;
+    gap: 15px;
 }
 
-#pagination-controls button {
-    padding: 8px 16px;
+.page-input-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.page-input {
+    width: 60px;
+    height: 38px; /* Cùng chiều cao với .action-btn */
+    padding: 8px;
+    text-align: center;
+    background-color: var(--background-color);
     border: 1px solid var(--border-color);
-    background-color: transparent;
     color: var(--text-color);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    border-radius: 8px; /* Cùng bo góc với .action-btn */
+    font-size: 0.9rem;
+    font-weight: 600;
+    -moz-appearance: textfield; /* Ẩn mũi tên trên Firefox */
+    appearance: none; /* Chuẩn hiện đại để ẩn mũi tên */
 }
 
-#pagination-controls button:hover:not(:disabled) {
-    background-color: var(--hover-background-color);
+.page-input::-webkit-outer-spin-button,
+.page-input::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Ẩn mũi tên trên Chrome, Safari, Edge */
+    margin: 0;
 }
 
-#pagination-controls button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+.page-input:focus {
+    outline: none;
+    border-color: var(--primary-accent);
 }
 
-.page-info {
-    padding: 0 10px;
+.page-total {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    padding-left: 5px;
 }
 
 /* --- Kiểu dáng cho các nút hành động --- */
@@ -300,7 +340,7 @@ ul {
     display: flex;
     justify-content: flex-end; /* Đẩy các nút về bên phải */
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Khoảng cách giữa các nút và bộ lọc */
 }
 
 .action-btn {
@@ -320,33 +360,11 @@ ul {
     opacity: 0.85; /* Hiệu ứng mờ đi một chút khi hover */
 }
 
-/* --- Nút thu gọn bộ lọc trên Mobile --- */
-#toggle-filters-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    width: auto;
-    height: auto;
-    padding: 10px 16px;
-}
-
-#filters-wrapper {
-    display: none; /* Mặc định ẩn bộ lọc trên mobile */
-}
-
-.filters-open #filters-wrapper {
-    display: block; /* Hiển thị khi có class .filters-open */
-}
-
 /* --- Kiểu dáng cho bộ lọc --- */
 #filter-controls {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .filter-group {
@@ -471,14 +489,16 @@ ul {
 
 .product-card-body {
     padding: 16px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 12px 20px; /* 12px row gap, 20px column gap */
 }
 
 .product-field {
     line-height: 1.5;
     font-size: 0.9rem;
+    flex-grow: 1; /* Cho phép các mục co giãn */
+    flex-basis: 120px; /* Chiều rộng cơ bản, giúp tự động xếp 2 cột khi đủ chỗ */
 }
 
 .product-field strong {
@@ -490,6 +510,7 @@ ul {
 .price-field {
     font-weight: 600;
     font-size: 1rem;
+    flex-basis: 100%; /* Luôn chiếm trọn một hàng */
 }
 
 .price-field strong {
@@ -497,7 +518,7 @@ ul {
 }
 
 .note-field {
-    grid-column: 1 / -1; /* Make note span both columns */
+    flex-basis: 100%; /* Luôn chiếm trọn một hàng */
     margin-top: 8px;
     padding-top: 12px;
     border-top: 1px solid var(--border-color);
