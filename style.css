@@ -418,10 +418,6 @@ ul {
 
 /* --- Giao diện Threads cho Thẻ sản phẩm --- */
 
-#product-container {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-}
-
 .product-card {
     background-color: transparent;
     border: 1px solid var(--border-color);
