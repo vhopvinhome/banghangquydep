@@ -4,9 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Chuỗi HTML chứa cấu trúc của thanh menu
     const menuHTML = `
         <nav class="main-nav">
-            <div class="logo">
-                <i class="s"></i>
-            </div>
             <ul>
                 <li>
                     <a href="index.html">
