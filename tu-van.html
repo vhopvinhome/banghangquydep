@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tư vấn - Threads Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Link đến thư viện icon Font Awesome để có icon giống Threads -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Vùng chứa menu: JavaScript sẽ tự động chèn menu vào đây -->
+    <div id="menu-container"></div>
+
+    <!-- Nội dung chính của trang web -->
+    <main class="content">
+        <div class="post-card">
+            <div class="post-body">
+                <h1>Liên hệ tư vấn</h1>
+                <p>Vui lòng để lại thông tin, chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.</p>
+                <br>
+                <form id="z-form" method="POST" target="hiddenFrame">
+                    <p>
+                        <label for="name">Họ và tên:</label><br>
+                        <input type="text" id="name" name="name" required>
+                    </p>
+                    <p>
+                        <label for="phone">Số điện thoại:</label><br>
+                        <input type="tel" id="phone" name="phone" required>
+                    </p>
+                    <p>
+                        <label for="message">Ghi chú:</label><br>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </p>
+                    <button type="submit" id="submit-btn">Gửi thông tin</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Iframe ẩn để xử lý việc gửi form mà không reload trang -->
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
+
+    <!-- Tải tệp JavaScript của menu ở cuối trang -->
+    <script src="menu.js"></script>
+    <!-- Tải tệp JavaScript cho trang tư vấn -->
+    <script src="tu-van.js"></script>
+</body>
+</html>

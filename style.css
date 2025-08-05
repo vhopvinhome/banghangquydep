@@ -1,0 +1,597 @@
+/* Cài đặt chung và giao diện tối (Mặc định) */
+:root {
+    --background-color: #000000; /* Pure Black */
+    --text-color: #ffffff; /* Pure White */
+    --border-color: #363636; /* Dark Grey for borders */
+    --primary-accent: #ffffff; /* White for primary elements */
+    --secondary-text: #a8a8a8;
+    --hover-background-color: #181818;
+    --bottom-nav-height: 60px;
+    --side-nav-width: 80px; /* Thu nhỏ chiều rộng menu */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- Giao diện cho điện thoại (Mobile First) --- */
+
+#menu-container .main-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--bottom-nav-height);
+    background-color: var(--background-color);
+    border-top: 1px solid var(--border-color);
+    z-index: 1000;
+}
+
+#menu-container .logo {
+    display: none; /* Ẩn logo trên điện thoại */
+}
+
+#menu-container ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+#menu-container a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 1.5rem; /* Kích thước icon lớn hơn */
+}
+
+#menu-container .menu-text {
+    display: none; /* Ẩn chữ của menu trên điện thoại */
+}
+
+.content {
+    padding: 15px;
+    /* Tạo khoảng trống ở dưới để nội dung không bị menu che mất */
+    padding-bottom: calc(var(--bottom-nav-height) + 20px);
+}
+
+/* --- Giao diện cho máy tính bảng và máy tính (Desktop) --- */
+/* Áp dụng khi chiều rộng màn hình từ 768px trở lên */
+
+@media (min-width: 768px) {
+    body {
+        display: flex;
+    }
+
+    #menu-container {
+        width: var(--side-nav-width);
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        border-right: 1px solid var(--border-color);
+        padding: 8px 12px 20px 12px;
+    }
+
+    #menu-container .main-nav {
+        position: relative; /* Bỏ fixed */
+        width: 100%;
+        height: 100%;
+        border-top: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #menu-container .logo {
+        display: block; /* Hiện logo trên desktop */
+        font-size: 2rem;
+        padding: 20px 12px;
+    }
+
+    #menu-container ul {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: auto;
+    }
+
+    #menu-container li {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    #menu-container a {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Căn giữa icon */
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 1.5rem; /* Làm icon to hơn một chút */
+        transition: background-color 0.2s ease-in-out;
+        height: 56px; /* Cho chiều cao cố định để đẹp hơn */
+    }
+
+    #menu-container a:hover {
+        background-color: var(--hover-background-color);
+    }
+
+    #menu-container a.active {
+        transform: scale(1.05); /* Phóng to nhẹ icon được chọn */
+    }
+
+    #menu-container .menu-text {
+        display: none; /* Ẩn hoàn toàn chữ trên desktop */
+    }
+
+    .content {
+        flex-grow: 1; /* Phần nội dung chiếm hết không gian còn lại */
+        padding: 20px 30px;
+        padding-bottom: 20px; /* Reset padding-bottom */
+    }
+
+    #toggle-filters-btn {
+        display: none; /* Ẩn nút trên desktop */
+    }
+
+    #filters-wrapper {
+        display: block !important; /* Luôn hiển thị bộ lọc trên desktop */
+    }
+}
+
+
+/* --- Các thành phần phụ trong nội dung --- */
+.post-card {
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.post-body {
+    margin-bottom: 15px;
+}
+
+.post-actions {
+    display: flex;
+    gap: 20px;
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+}
+
+.post-actions i {
+    cursor: pointer;
+}
+
+/* --- Giao diện sáng (Light Theme) theo cài đặt hệ thống --- */
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color: #ffffff; /* Pure White */
+        --text-color: #000000; /* Pure Black */
+        --border-color: #dbdbdb;
+        --primary-accent: #000000; /* Black for primary elements */
+        --secondary-text: #737373;
+        --hover-background-color: #f2f2f2;
+    }
+}
+
+/* --- Kiểu dáng cho trang sản phẩm --- */
+#product-container {
+    display: grid;
+    /* Tối thiểu 160px, tự động lấp đầy, đảm bảo có ít nhất 2 cột trên mobile */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+}
+
+/* --- Kiểu dáng cho Spinner --- */
+#loader-container {
+    display: none; /* Mặc định ẩn */
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.loader {
+    border: 5px solid var(--hover-background-color); /* Màu nền của vòng quay */
+    border-top: 5px solid var(--primary-accent); /* Màu của phần đang quay */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* --- Kiểu dáng thẻ sản phẩm giống Threads hơn --- */
+.product-card {
+    background-color: transparent; /* Nền trong suốt */
+    border: 1px solid var(--border-color); /* Viền mỏng để phân tách */
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.product-field {
+    line-height: 1.4;
+}
+
+.product-field strong {
+    color: var(--primary-accent);
+}
+
+.product-note {
+    margin-top: 5px;
+    font-style: italic;
+    color: var(--secondary-text);
+}
+
+/* --- Kiểu dáng cho phân trang --- */
+#pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+#pagination-controls button {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    color: var(--text-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#pagination-controls button:hover:not(:disabled) {
+    background-color: var(--hover-background-color);
+}
+
+#pagination-controls button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.page-info {
+    padding: 0 10px;
+}
+
+/* --- Kiểu dáng cho các nút hành động --- */
+#action-controls {
+    display: flex;
+    justify-content: flex-end; /* Đẩy các nút về bên phải */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    /* Nền trắng/đen, chữ đen/trắng tương phản */
+    background-color: var(--text-color);
+    color: var(--background-color);
+    border: 1px solid transparent; /* Bỏ viền mặc định để nút trông liền khối */
+    border-radius: 8px; /* Bo tròn đồng nhất */
+    cursor: pointer;
+    transition: opacity 0.2s;
+    height: 38px; /* Cùng chiều cao với các input/select */
+    font-weight: 600; /* Chữ đậm hơn cho nổi bật */
+}
+
+.action-btn:hover:not(:disabled) {
+    opacity: 0.85; /* Hiệu ứng mờ đi một chút khi hover */
+}
+
+/* --- Nút thu gọn bộ lọc trên Mobile --- */
+#toggle-filters-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    width: auto;
+    height: auto;
+    padding: 10px 16px;
+}
+
+#filters-wrapper {
+    display: none; /* Mặc định ẩn bộ lọc trên mobile */
+}
+
+.filters-open #filters-wrapper {
+    display: block; /* Hiển thị khi có class .filters-open */
+}
+
+/* --- Kiểu dáng cho bộ lọc --- */
+#filter-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Khoảng cách giữa label và input */
+}
+
+.filter-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--secondary-text);
+    padding-left: 2px;
+}
+
+.filter-row {
+    grid-column: 1 / -1; /* Làm cho hàng này chiếm toàn bộ chiều rộng grid */
+    display: flex; /* Giữ lại flex để sắp xếp các phần tử con bên trong */
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.filter-group-span-2 {
+    grid-column: span 2; /* Làm cho phần tử này chiếm 2 cột */
+}
+
+.filter-group-large {
+    flex-grow: 2 !important; /* Ưu tiên cho ô tìm kiếm rộng hơn */
+}
+
+#filter-controls input,
+#filter-controls select {
+    padding: 8px 12px;
+    background-color: var(--background-color); /* Nền đen/trắng theo theme */
+    border: 1px solid var(--border-color);
+    color: var(--text-color); /* Giữ nguyên màu chữ */
+    border-radius: 8px; /* Bo tròn đồng nhất */
+    font-size: 0.9rem;
+    width: 100%; /* Input/select sẽ chiếm hết chiều rộng của group */
+    transition: border-color 0.2s;
+}
+
+#filter-controls input:focus,
+#filter-controls select:focus {
+    outline: none;
+    border-color: var(--primary-accent); /* Highlight viền khi focus */
+}
+
+#filter-controls input::placeholder {
+    color: var(--secondary-text);
+}
+
+.dt-filter-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* --- Keyframes cho Animation --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Giao diện Threads cho Thẻ sản phẩm --- */
+
+#product-container {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.product-card {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 12px; /* Bo tròn hơn */
+    padding: 0; /* Bỏ padding cũ để kiểm soát bên trong */
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.2s ease;
+    overflow: hidden; /* Đảm bảo bo góc được áp dụng đúng */
+    /* Áp dụng animation */
+    opacity: 0; /* Bắt đầu ẩn */
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.product-card:hover {
+    background-color: var(--hover-background-color);
+}
+
+.product-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.product-card-code {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-accent);
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-text);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.copy-btn:hover {
+    background-color: var(--hover-background-color);
+    color: var(--primary-accent);
+}
+
+.product-card-body {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px; /* 12px row gap, 20px column gap */
+}
+
+.product-field {
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+.product-field strong {
+    color: var(--secondary-text); /* Làm mờ label */
+    font-weight: 400;
+    margin-right: 6px;
+}
+
+.price-field {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.price-field strong {
+    font-weight: 500;
+}
+
+.note-field {
+    grid-column: 1 / -1; /* Make note span both columns */
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+    font-style: normal; /* Bỏ in nghiêng */
+    color: var(--text-color); /* Cho màu chữ rõ hơn */
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- Kiểu dáng cho Form liên hệ (tu-van.html) --- */
+#z-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Khoảng cách giữa các trường */
+    max-width: 600px; /* Giới hạn chiều rộng form cho đẹp hơn */
+}
+
+#z-form p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#z-form label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--secondary-text);
+}
+
+#z-form input[type="text"],
+#z-form input[type="tel"],
+#z-form textarea {
+    padding: 12px;
+    background-color: var(--hover-background-color); /* Dùng màu nền xám nhẹ */
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.2s;
+    font-family: inherit; /* Kế thừa font từ body */
+}
+
+#z-form input[type="text"]:focus,
+#z-form input[type="tel"]:focus,
+#z-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-accent); /* Highlight viền khi focus */
+}
+
+#z-form button[type="submit"] {
+    /* Áp dụng lại style của .action-btn */
+    padding: 12px 24px;
+    background-color: var(--text-color);
+    color: var(--background-color);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-weight: 600;
+    font-size: 1rem;
+    align-self: flex-start; /* Nút chỉ chiếm độ rộng cần thiết */
+}
+
+#z-form button[type="submit"]:hover:not(:disabled) {
+    opacity: 0.85;
+}
+
+#z-form button[type="submit"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- Kiểu dáng cho trang Thông tin (thong-tin.html) --- */
+.link-buttons-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start; /* Căn các nút về bên trái */
+}
+
+.link-btn {
+    display: inline-flex; /* Để căn chỉnh icon và text */
+    align-items: center;
+    gap: 10px;
+    text-decoration: none; /* Đảm bảo không có gạch chân */
+    padding: 12px 24px; /* Tăng padding cho đẹp hơn */
+    height: auto; /* Ghi đè chiều cao cố định từ .action-btn */
+    width: auto; /* Nút chỉ chiếm độ rộng cần thiết */
+    align-self: flex-start;
+}

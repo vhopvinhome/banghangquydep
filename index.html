@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threads Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Link đến thư viện icon Font Awesome để có icon giống Threads -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Vùng chứa menu: JavaScript sẽ tự động chèn menu vào đây -->
+    <div id="menu-container"></div>
+
+    <!-- Nội dung chính của trang web -->
+    <main class="content">
+        <button id="toggle-filters-btn" class="action-btn">
+            <i class="fa-solid fa-filter"></i>
+            <span>Bộ lọc</span>
+        </button>
+
+        <div id="filters-wrapper">
+            <!-- Vùng chứa các nút hành động -->
+            <div id="action-controls">
+                <button id="clear-filters-btn" class="action-btn">Xóa bộ lọc</button>
+                <button id="update-data-btn" class="action-btn">Cập nhật dữ liệu</button>
+            </div>
+            <!-- Vùng chứa các bộ lọc -->
+            <div id="filter-controls">
+                <div class="filter-group filter-group-span-2">
+                    <label for="sort-select" class="filter-label">Sắp xếp theo giá</label>
+                    <select id="sort-select">
+                        <option value="default">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-duan" class="filter-label">Dự án</label>
+                    <select id="filter-duan"></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-khu" class="filter-label">Phân khu</label>
+                    <select id="filter-khu"></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-day" class="filter-label">Dãy căn</label>
+                    <select id="filter-day"></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-tts" class="filter-label">Giá TTS</label>
+                    <select id="filter-tts"></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-full" class="filter-label">Giá Full</label>
+                    <select id="filter-full"></select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-CoChe" class="filter-label">Cơ chế</label>
+                    <select id="filter-CoChe"></select>
+                </div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Diện tích (m²)</label>
+                        <div class="dt-filter-group">
+                            <input type="number" id="filter-dt-min" placeholder="Từ">
+                            <input type="number" id="filter-dt-max" placeholder="Đến">
+                        </div>
+                    </div>
+                    <div class="filter-group filter-group-large">
+                        <label for="search-ma-can" class="filter-label">Tìm theo mã căn</label>
+                        <input type="search" id="search-ma-can" placeholder="Nhập mã căn...">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Spinner hiển thị khi đang tải dữ liệu -->
+        <div id="loader-container">
+            <div class="loader"></div>
+        </div>
+        <!-- Vùng chứa danh sách sản phẩm -->
+        <div id="product-container"></div>
+        <!-- Vùng chứa các nút điều khiển phân trang -->
+        <div id="pagination-controls"></div>
+    </main>
+
+    <!-- Tải tệp JavaScript của menu ở cuối trang -->
+    <script src="menu.js"></script>
+    <!-- Tải tệp JavaScript để hiển thị sản phẩm -->
+    <script src="products.js"></script>
+</body>
+</html>
